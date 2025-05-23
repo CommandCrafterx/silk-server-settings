@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Silk Server Settings
+Exec=silk-server-settings
+Icon=org.silkos.ServerSettings
+Type=Application
+Categories=System;Settings;Security;
