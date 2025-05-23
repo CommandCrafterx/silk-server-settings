@@ -24,6 +24,8 @@ including SSH access, root login, system updates, and integrity checking.
 %install
 # Install the Python script
 install -Dm755 silk-server-settings.py %{buildroot}%{_bindir}/silk-server-settings
+# Install the SVG icon
+install -Dm644 org.silkos.ServerSettings.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/org.silkos.ServerSettings.svg
 
 # Install the .desktop launcher
 install -Dm644 silk-server-settings.desktop %{buildroot}%{_datadir}/applications/silk-server-settings.desktop
@@ -33,6 +35,18 @@ install -Dm644 silk-server-settings.desktop %{buildroot}%{_datadir}/applications
 %doc README.md
 %{_bindir}/silk-server-settings
 %{_datadir}/applications/silk-server-settings.desktop
+%{_datadir}/icons/hicolor/scalable/apps/org.silkos.ServerSettings.svg
+
+%post
+if [ -x /usr/bin/gtk-update-icon-cache ]; then
+  gtk-update-icon-cache -f %{_datadir}/icons/hicolor || :
+fi
+
+%postun
+if [ -x /usr/bin/gtk-update-icon-cache ]; then
+  gtk-update-icon-cache -f %{_datadir}/icons/hicolor || :
+fi
+
 
 %changelog
 * Fri May 23 2025 CommandCrafterx - 0.0.1
