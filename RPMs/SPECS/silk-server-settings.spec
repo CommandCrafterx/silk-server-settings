@@ -1,39 +1,40 @@
 Name:           silk-server-settings
 Version:        0.0.1
 Release:        1%{?dist}
-Summary:        Simple GTK4/Adw app for Silk Server management
+Summary:        SilkOS server configuration tool
 
 License:        MIT
-URL:            https://github.com/CommandCrafterx/silk-server-settings
-Source0:        silk-server-settings
-Source1:        silk-server-settings.desktop
+URL:            https://example.com/silk-server-settings
+Source0:        %{name}-%{version}.tar.gz
+
 BuildArch:      noarch
-Requires:       python3, python3-gi, adwaita-gtk3-theme, polkit (optional)
+BuildRequires:  python3
+Requires:       python3, gtk4, libadwaita
 
 %description
-A GTK4 and libadwaita based app to manage Silk Server settings like root login, sshd, firewall etc.
+A lightweight GTK4+Libadwaita application to configure basic server settings for SilkOS,
+including SSH access, root login, system updates, and integrity checking.
 
 %prep
-# no preparation needed
+%autosetup
 
 %build
-# no build step
+# Nothing to build for this Python/GTK app
 
 %install
-rm -rf %{buildroot}
+# Install the Python script
+install -Dm755 silk-server-settings.py %{buildroot}%{_bindir}/silk-server-settings
 
-# Install the script as executable
-install -d %{buildroot}/usr/bin
-install -m 755 %{SOURCE0} %{buildroot}/usr/bin/silk-server-settings
-
-# Install the .desktop file
-install -d %{buildroot}/usr/share/applications
-install -m 644 %{SOURCE1} %{buildroot}/usr/share/applications/silk-server-settings.desktop
+# Install the .desktop launcher
+install -Dm644 silk-server-settings.desktop %{buildroot}%{_datadir}/applications/silk-server-settings.desktop
 
 %files
-/usr/bin/silk-server-settings
-/usr/share/applications/silk-server-settings.desktop
+%license LICENSE
+%doc README.md
+%{_bindir}/silk-server-settings
+%{_datadir}/applications/silk-server-settings.desktop
 
 %changelog
-* Thu May 23 2025 CommandCrafterx - 1.0-1
-- Initial package
+* Fri May 23 2025 CommandCrafterx - 0.0.1
+- Initial release
+
