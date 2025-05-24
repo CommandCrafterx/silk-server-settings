@@ -29,54 +29,44 @@ class SilkServerSettings(Adw.Application):
         self.window.set_title("Silk Server Settings")
         self.window.set_default_size(720, 520)
 
-        # Create the main box with spacing and margins
         main_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=16, margin_top=20, margin_bottom=20, margin_start=20, margin_end=20)
 
-        # System info display
         info_label = Gtk.Label(label=self.get_system_info())
         info_label.set_xalign(0)
         main_box.append(info_label)
 
-        # Root login toggle
         self.root_button = Gtk.Button()
         self.update_root_button_label()
         self.root_button.connect("clicked", self.toggle_root_login)
         main_box.append(self.root_button)
 
-        # SSH service toggle
         self.ssh_button = Gtk.Button()
         self.update_ssh_button_label()
         self.ssh_button.connect("clicked", self.toggle_sshd)
         main_box.append(self.ssh_button)
 
-        # SSH root login toggle
         self.ssh_root_button = Gtk.Button()
         self.update_ssh_root_button_label()
         self.ssh_root_button.connect("clicked", self.toggle_ssh_root_login)
         main_box.append(self.ssh_root_button)
 
-        # Firewall toggle
         self.firewall_button = Gtk.Button()
         self.update_firewall_button_label()
         self.firewall_button.connect("clicked", self.toggle_firewalld)
         main_box.append(self.firewall_button)
 
-        # System update button
         update_button = Gtk.Button(label="Update system now")
         update_button.connect("clicked", self.run_updates)
         main_box.append(update_button)
 
-        # Integrity check
         integrity_button = Gtk.Button(label="Run integrity check")
         integrity_button.connect("clicked", self.run_integrity_check)
         main_box.append(integrity_button)
 
-        # Hash update
         update_hashes_button = Gtk.Button(label="Update integrity hashes")
         update_hashes_button.connect("clicked", self.update_hashes)
         main_box.append(update_hashes_button)
 
-        # Reboot and shutdown buttons
         reboot_button = Gtk.Button(label="Reboot system")
         reboot_button.connect("clicked", self.reboot_system)
         main_box.append(reboot_button)
@@ -85,7 +75,10 @@ class SilkServerSettings(Adw.Application):
         shutdown_button.connect("clicked", self.shutdown_system)
         main_box.append(shutdown_button)
 
-        # Enable scrolling if the window is too small
+        close_button = Gtk.Button(label="Close")
+        close_button.connect("clicked", self.close_app)
+        main_box.append(close_button)
+
         scrolled = Gtk.ScrolledWindow()
         scrolled.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
         scrolled.set_child(main_box)
@@ -226,6 +219,9 @@ class SilkServerSettings(Adw.Application):
 
     def shutdown_system(self, button):
         subprocess.run(["systemctl", "poweroff"])
+
+    def close_app(self, button):
+        self.quit()
 
     def initialize_hashes(self):
         if not os.path.exists(HASH_FILE):
