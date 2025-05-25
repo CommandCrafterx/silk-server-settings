@@ -46,7 +46,11 @@ fi
 if [ -x /usr/bin/gtk-update-icon-cache ]; then
   gtk-update-icon-cache -f %{_datadir}/icons/hicolor || :
 fi
-
+if [ "$1" = "0" ]; then
+  if [ -f /etc/silk_integrity_hashes.json ]; then
+    rm -f /etc/silk_integrity_hashes.json
+  fi
+fi
 
 %changelog
 * Fri May 23 2025 CommandCrafterx - 0.0.1
