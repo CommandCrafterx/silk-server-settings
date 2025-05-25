@@ -17,6 +17,10 @@ HASH_FILE = "/etc/silk_integrity_hashes.json"
 INTEGRITY_FILES = [
     "/etc/passwd",
     "/etc/ssh/sshd_config",
+    "/etc/shadow",
+    "/etc/group",
+    "/etc/sudoers",
+    "/etc/fstab",
 ]
 
 class SilkServerSettings(Adw.Application):
