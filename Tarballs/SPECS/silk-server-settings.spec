@@ -1,5 +1,5 @@
 Name:           silk-server-settings
-Version:        0.0.1
+Version:        0.0.2
 Release:        1%{?dist}
 Summary:        SilkOS server configuration tool
 
@@ -54,5 +54,6 @@ fi
 
 %changelog
 * Fri May 23 2025 CommandCrafterx - 0.0.1
-- Initial release
-
+- Added new files to the integrity check
+- Added close button
+- Improved uninstallation
