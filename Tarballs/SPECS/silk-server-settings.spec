@@ -53,7 +53,7 @@ if [ "$1" = "0" ]; then
 fi
 
 %changelog
-* Fri May 23 2025 CommandCrafterx - 0.0.1
+* Mon May 26 2025 CommandCrafterx - 0.0.2
 - Added new files to the integrity check
 - Added close button
 - Improved uninstallation
